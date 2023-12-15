@@ -3,7 +3,6 @@ package Chess;
 import Chess.Pieces.King;
 import Chess.Pieces.Rook;
 import boardGame.Board;
-import boardGame.Position;
 
 public class ChessMatch {
     private Board board;
@@ -25,9 +24,22 @@ public class ChessMatch {
         return mat;
     }
 
+    private void placeNewPiece(char column, int row, ChessPiece piece) {
+        this.board.placePiece(piece, new ChessPosition(column, row).toPosition());
+    }
+
     private void initialSetup() {
-        this.board.placePiece(new Rook(board, Color.WHITE), new Position(2, 1));
-        this.board.placePiece(new King(board, Color.BLACK), new Position(0, 4));
-        this.board.placePiece(new King(board, Color.WHITE), new Position(7, 4));
+        this.initiateColorSetup(1);
+        this.initiateColorSetup(8);
+    }
+
+    private void initiateColorSetup(int initialRow) {
+        // Rooks
+        this.placeNewPiece('a', initialRow, new Rook(board, Color.WHITE));
+        this.placeNewPiece('h', initialRow, new Rook(board, Color.WHITE));
+
+        // King
+        this.placeNewPiece('e', initialRow, new King(board, Color.WHITE));
+
     }
 }
